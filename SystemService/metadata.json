@@ -1,0 +1,13 @@
+{
+  "className": "SystemService",
+  "type": "service",
+  "name": "SystemServiceService",
+  "icon": "categories/applications-system.png",
+  "autostart": true,
+  "preload": [
+    {
+      "src": "main.js",
+      "type": "javascript"
+    }
+  ]
+}

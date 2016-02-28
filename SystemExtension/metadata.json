@@ -1,0 +1,19 @@
+{
+  "className":  "SystemExtension",
+  "type":       "extension",
+  "build":      {
+    "copy": [
+      "metadata.json",
+      "api.js",
+      "extension.js",
+      "wifi.js"
+    ]
+  },
+  "sources":    [
+    {"src": "extension.js", "type": "javascript"},
+    {"src": "wifi.js", "type": "javascript"}
+  ]
+}
+
+
+
