@@ -45,6 +45,10 @@
     var wm = OSjs.Core.getWindowManager();
     if ( wm ) {
       wm.removeNotificationIcon('SystemServiceNotification');
+      wm.removeNotificationIcon('SoundNotification');
+      wm.removeNotificationIcon('BatteryNotification');
+      wm.removeNotificationIcon('NetworkNotification');
+      wm.removeNotificationIcon('WirelessNotification');
     }
 
     return Service.prototype.destroy.apply(this, arguments);
@@ -63,6 +67,26 @@
         image: OSjs.API.getIcon('devices/computer.png', '16x16'),
         title: 'System',
         onClick: this.showMenu
+      });
+
+      wm.createNotificationIcon('SoundNotification', {
+        image: OSjs.API.getIcon('status/audio-volume-muted.png', '16x16'),
+        title: 'Volume'
+      });
+
+      wm.createNotificationIcon('BatteryNotification', {
+        image: OSjs.API.getIcon('status/battery-missing.png', '16x16'),
+        title: 'Battery'
+      });
+
+      wm.createNotificationIcon('NetworkNotification', {
+        image: OSjs.API.getIcon('status/network-offline.png', '16x16'),
+        title: 'Network'
+      });
+
+      wm.createNotificationIcon('WirelessNotification', {
+        image: OSjs.API.getIcon('devices/network-wireless.png', '16x16'),
+        title: 'Wireless'
       });
     }
   };
