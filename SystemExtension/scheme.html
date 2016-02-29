@@ -1,3 +1,145 @@
+<application-dialog data-id="System">
+
+  <gui-vbox>
+    <gui-vbox-container data-grow="1" data-fill="true">
+      <gui-tabs>
+        <gui-tab-container data-label="Date and Time">
+        </gui-tab-container>
+      </gui-tabs>
+    </gui-vbox-container>
+
+    <gui-vbox-container data-shrink="1" data-align="end">
+      <gui-button-bar>
+        <gui-button data-id="ButtonApply">LBL_APPLY</gui-button>
+        <gui-button data-id="ButtonOK">LBL_CANCEL</gui-button>
+      </gui-button-bar>
+    </gui-vbox-container>
+  </gui-vbox>
+
+</application-dialog>
+
+<application-dialog data-id="NetworkConnection">
+
+  <gui-vbox>
+    <gui-vbox-container data-grow="1" data-fill="true">
+      <gui-tabs>
+        <gui-tab-container data-label="Network">
+          <gui-vbox>
+            <gui-vbox-container data-grow="1" data-fill="true">
+              <gui-textarea data-id="Network" />
+            </gui-vbox-container>
+          </gui-vbox>
+        </gui-tab-container>
+
+      </gui-tabs>
+    </gui-vbox-container>
+
+    <gui-vbox-container data-shrink="1" data-align="end">
+      <gui-button-bar>
+        <gui-button data-id="ButtonApply">LBL_APPLY</gui-button>
+        <gui-button data-id="ButtonOK">LBL_CANCEL</gui-button>
+      </gui-button-bar>
+    </gui-vbox-container>
+  </gui-vbox>
+
+</application-dialog>
+
+<application-dialog data-id="Status">
+
+  <gui-vbox>
+    <gui-vbox-container data-grow="1" data-fill="true">
+      <gui-tabs>
+        <gui-tab-container data-label="Network">
+          <gui-vbox>
+            <gui-vbox-container data-grow="1" data-fill="true">
+              <gui-textarea data-id="Network" />
+            </gui-vbox-container>
+          </gui-vbox>
+        </gui-tab-container>
+
+      </gui-tabs>
+    </gui-vbox-container>
+
+    <gui-vbox-container data-shrink="1" data-align="end">
+      <gui-button-bar>
+        <gui-button data-id="ButtonRefresh">LBL_REFRESH</gui-button>
+        <gui-button data-id="ButtonOK">LBL_CLOSE</gui-button>
+      </gui-button-bar>
+    </gui-vbox-container>
+  </gui-vbox>
+
+</application-dialog>
+
 <application-dialog data-id="WIFIConnection">
+
+  <gui-vbox>
+
+    <gui-vbox-container data-grow="1" data-fill="true">
+      <gui-tabs>
+        <gui-tab-container data-label="Wireless">
+          <gui-vbox>
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">Device</gui-label>
+              <gui-select class="perc-80" data-id="Device">
+              </gui-select>
+            </gui-vbox-container>
+
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">Mode</gui-label>
+              <gui-select class="perc-80" data-id="Mode">
+              </gui-select>
+            </gui-vbox-container>
+
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">BSSID</gui-label>
+              <gui-text class="perc-80" data-id="BSSID" data-placeholder="00:00:00:00:00" />
+            </gui-vbox-container>
+          </gui-vbox>
+        </gui-tab-container>
+
+        <gui-tab-container data-label="Security">
+          <gui-vbox>
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">Security</gui-label>
+              <gui-select class="perc-80" data-id="SecurityMode">
+              </gui-select>
+            </gui-vbox-container>
+
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">Key</gui-label>
+              <gui-password class="perc-80" data-id="SecurityKey" />
+            </gui-vbox-container>
+          </gui-vbox>
+        </gui-tab-container>
+
+        <gui-tab-container data-label="IPv4 Settings">
+          <gui-vbox>
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">Method</gui-label>
+              <gui-select class="perc-80" data-id="IPv4Method">
+              </gui-select>
+            </gui-vbox-container>
+          </gui-vbox>
+        </gui-tab-container>
+
+        <gui-tab-container data-label="IPv6 Settings">
+          <gui-vbox>
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">Method</gui-label>
+              <gui-select class="perc-80" data-id="IPv4Method">
+              </gui-select>
+            </gui-vbox-container>
+          </gui-vbox>
+        </gui-tab-container>
+      </gui-tabs>
+    </gui-vbox-container>
+
+    <gui-vbox-container data-shrink="1" data-align="end">
+      <gui-button-bar>
+        <gui-button data-id="ButtonApply">LBL_APPLY</gui-button>
+        <gui-button data-id="ButtonOK">LBL_CANCEL</gui-button>
+      </gui-button-bar>
+    </gui-vbox-container>
+  </gui-vbox>
 
 </application-dialog>

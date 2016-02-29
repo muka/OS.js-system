@@ -33,23 +33,53 @@
   // DIALOG
   /////////////////////////////////////////////////////////////////////////////
 
-  function WIFIConnectionDialog(args, callback) {
+  function StatusDialog(args, callback) {
     args = Utils.argumentDefaults(args, {});
     args.scheme = OSjs.Extensions.SystemExtension.scheme;
 
-    DialogWindow.apply(this, ['WIFIConnectionDialog', {
-      title: 'WIFI',
+    DialogWindow.apply(this, ['StatusDialog', {
+      title: 'Status',
       icon: 'devices/network-wireless.png',
       width: 400,
       height: 300
     }, args, callback]);
   }
 
-  WIFIConnectionDialog.prototype = Object.create(DialogWindow.prototype);
-  WIFIConnectionDialog.constructor = DialogWindow;
+  StatusDialog.prototype = Object.create(DialogWindow.prototype);
+  StatusDialog.constructor = DialogWindow;
 
-  WIFIConnectionDialog.prototype.init = function() {
+  StatusDialog.prototype.init = function() {
     var root = DialogWindow.prototype.init.apply(this, arguments);
+    var self = this;
+
+    var networkStatus = this.scheme.find(this, 'Network');
+
+    function refresh() {
+      self._toggleLoading(true);
+
+      API.call('ifconfig', {}, function(response) {
+        self._toggleLoading(false);
+
+        if ( response.result ) {
+          if ( networkStatus ) {
+            networkStatus.set('value', JSON.stringify(response.result, null, 4));
+          }
+        }
+      }, function(err) {
+        self._toggleLoading(false);
+      });
+    }
+
+    this.scheme.find(this, 'ButtonClose').on('click', function(ev) {
+      self._close();
+    });
+
+    this.scheme.find(this, 'ButtonRefresh').on('click', function(ev) {
+      refresh();
+    });
+
+    refresh();
+
     return root;
   };
 
@@ -57,12 +87,12 @@
   // MODULE API
   /////////////////////////////////////////////////////////////////////////////
 
-  var WIFI = {
+  var Status = {
     openDialog: function(cb) {
       cb = cb || function() {};
 
       return OSjs.API.createDialog(function(args, callback) {
-        return new WIFIConnectionDialog(args, callback);
+        return new StatusDialog(args, callback);
       }, {}, cb);
     }
   };
@@ -72,7 +102,7 @@
   /////////////////////////////////////////////////////////////////////////////
 
   OSjs.Extensions.SystemExtension = OSjs.Extensions.SystemExtension || {};
-  OSjs.Extensions.SystemExtension.WIFI = WIFI;
+  OSjs.Extensions.SystemExtension.Status = Status;
 
 })(OSjs.Utils, OSjs.VFS, OSjs.API, OSjs.Core.DialogWindow);
 

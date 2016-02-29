@@ -33,22 +33,22 @@
   // DIALOG
   /////////////////////////////////////////////////////////////////////////////
 
-  function WIFIConnectionDialog(args, callback) {
+  function NetworkConnectionDialog(args, callback) {
     args = Utils.argumentDefaults(args, {});
     args.scheme = OSjs.Extensions.SystemExtension.scheme;
 
-    DialogWindow.apply(this, ['WIFIConnectionDialog', {
-      title: 'WIFI',
-      icon: 'devices/network-wireless.png',
+    DialogWindow.apply(this, ['NetworkConnectionDialog', {
+      title: 'Network',
+      icon: 'devices/network-wired.png',
       width: 400,
       height: 300
     }, args, callback]);
   }
 
-  WIFIConnectionDialog.prototype = Object.create(DialogWindow.prototype);
-  WIFIConnectionDialog.constructor = DialogWindow;
+  NetworkConnectionDialog.prototype = Object.create(DialogWindow.prototype);
+  NetworkConnectionDialog.constructor = DialogWindow;
 
-  WIFIConnectionDialog.prototype.init = function() {
+  NetworkConnectionDialog.prototype.init = function() {
     var root = DialogWindow.prototype.init.apply(this, arguments);
     return root;
   };
@@ -57,12 +57,12 @@
   // MODULE API
   /////////////////////////////////////////////////////////////////////////////
 
-  var WIFI = {
+  var Network = {
     openDialog: function(cb) {
       cb = cb || function() {};
 
       return OSjs.API.createDialog(function(args, callback) {
-        return new WIFIConnectionDialog(args, callback);
+        return new NetworkConnectionDialog(args, callback);
       }, {}, cb);
     }
   };
@@ -72,7 +72,7 @@
   /////////////////////////////////////////////////////////////////////////////
 
   OSjs.Extensions.SystemExtension = OSjs.Extensions.SystemExtension || {};
-  OSjs.Extensions.SystemExtension.WIFI = WIFI;
+  OSjs.Extensions.SystemExtension.Network = Network;
 
 })(OSjs.Utils, OSjs.VFS, OSjs.API, OSjs.Core.DialogWindow);
 

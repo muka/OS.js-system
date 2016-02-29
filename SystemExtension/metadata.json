@@ -6,11 +6,19 @@
       "metadata.json",
       "api.js",
       "extension.js",
+      "extension.css",
+      "status.js",
+      "system.js",
+      "network.js",
       "wifi.js"
     ]
   },
   "sources":    [
     {"src": "extension.js", "type": "javascript"},
+    {"src": "extension.css", "type": "stylesheet"},
+    {"src": "status.js", "type": "javascript"},
+    {"src": "system.js", "type": "javascript"},
+    {"src": "network.js", "type": "javascript"},
     {"src": "wifi.js", "type": "javascript"}
   ]
 }

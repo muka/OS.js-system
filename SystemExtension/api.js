@@ -27,19 +27,19 @@
  * @author  Anders Evenrud <andersevenrud@gmail.com>
  * @licence Simplified BSD License
  */
-(function() {
+(function(os) {
 
-  function wifiStatus(args, cb) {
-    cb(false, true);
+  function ifconfig(args, cb) {
+    cb(false, os.networkInterfaces());
   }
 
-  function wifiConfigure(args, cb) {
+  function iwconfig(args, cb) {
     cb(false, true);
   }
 
   exports.register = function(API, VFS, instance) {
-    API.wifiStatus = wifiStatus;
-    API.wifiConfigure = wifiConfigure;
+    API.iwconfig = iwconfig;
+    API.ifconfig = ifconfig;
   };
 
-})();
+})(require('os'));

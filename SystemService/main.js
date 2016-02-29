@@ -69,9 +69,24 @@
 
   SystemService.prototype.showMenu = function(ev) {
     OSjs.API.createMenu([{
+      title: 'Configure System',
+      onClick: function() {
+        OSjs.Extensions.SystemExtension.System.openDialog();
+      }
+    }, {
       title: 'Configure WIFI',
       onClick: function() {
         OSjs.Extensions.SystemExtension.WIFI.openDialog();
+      }
+    }, {
+      title: 'Configure Network',
+      onClick: function() {
+        OSjs.Extensions.SystemExtension.Network.openDialog();
+      }
+    },{
+      title: 'Show System Status',
+      onClick: function() {
+        OSjs.Extensions.SystemExtension.Status.openDialog();
       }
     }], ev);
   };
