@@ -38,7 +38,7 @@
     args.scheme = OSjs.Extensions.SystemExtension.scheme;
 
     DialogWindow.apply(this, ['WIFIConnectionDialog', {
-      title: 'WIFI',
+      title: 'Configure Wireless Devices',
       icon: 'devices/network-wireless.png',
       width: 400,
       height: 300

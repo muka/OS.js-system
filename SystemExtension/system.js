@@ -38,7 +38,7 @@
     args.scheme = OSjs.Extensions.SystemExtension.scheme;
 
     DialogWindow.apply(this, ['SystemDialog', {
-      title: 'System',
+      title: 'Configure System',
       icon: 'devices/computer.png',
       width: 400,
       height: 300

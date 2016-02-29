@@ -30,16 +30,48 @@
 (function(os) {
 
   function ifconfig(args, cb) {
-    cb(false, os.networkInterfaces());
+    var ifconfig = require('wireless-tools/ifconfig');
+
+    if ( ['up', 'down'].indexOf(args.command) >= 0 ) {
+      ifconfig[args.command](args.options, cb);
+    } else if ( args.command === 'status' ) {
+      var device = args.device || 'lo';
+      if ( device === true ) {
+        ifconfig.status(cb);
+      } else {
+        ifconfig.status(device, cb);
+      }
+    } else {
+      cb('No such command', true);
+    }
+
   }
 
   function iwconfig(args, cb) {
-    cb(false, true);
+    var device = args.device || 'wlan0';
+    var iwconfig = require('wireless-tools/iwconfig');
+
+    if ( args.command === 'status' ) {
+      if ( device === true ) {
+        iwconfig.status(cb);
+      } else {
+        iwconfig.status(device, cb);
+      }
+    } else {
+      cb('No such command', true);
+    }
+  }
+
+  function iwscan(args, cb) {
+    var device = args.device || 'wlan0';
+    var iwlist = require('wireless-tools/iwlist');
+    iwlist.scan(device, cb);
   }
 
   exports.register = function(API, VFS, instance) {
     API.iwconfig = iwconfig;
     API.ifconfig = ifconfig;
+    API.iwscan   = iwscan;
   };
 
 })(require('os'));

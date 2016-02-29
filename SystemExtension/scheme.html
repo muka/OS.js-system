@@ -5,6 +5,12 @@
       <gui-tabs>
         <gui-tab-container data-label="Date and Time">
         </gui-tab-container>
+        <gui-tab-container data-label="Localization">
+        </gui-tab-container>
+        <gui-tab-container data-label="Users and Groups">
+        </gui-tab-container>
+        <gui-tab-container data-label="Services">
+        </gui-tab-container>
       </gui-tabs>
     </gui-vbox-container>
 
@@ -21,12 +27,32 @@
 <application-dialog data-id="NetworkConnection">
 
   <gui-vbox>
+    <gui-vbox-container data-shrink="1" data-expand="true">
+      <gui-select data-id="Device">
+      </gui-select>
+    </gui-vbox-container>
     <gui-vbox-container data-grow="1" data-fill="true">
       <gui-tabs>
-        <gui-tab-container data-label="Network">
+        <gui-tab-container data-label="Wired">
           <gui-vbox>
-            <gui-vbox-container data-grow="1" data-fill="true">
-              <gui-textarea data-id="Network" />
+          </gui-vbox>
+        </gui-tab-container>
+        <gui-tab-container data-label="IPv4 Settings">
+          <gui-vbox>
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">Method</gui-label>
+              <gui-select class="perc-80" data-id="IPv4Method">
+              </gui-select>
+            </gui-vbox-container>
+          </gui-vbox>
+        </gui-tab-container>
+
+        <gui-tab-container data-label="IPv6 Settings">
+          <gui-vbox>
+            <gui-vbox-container data-shrink="1">
+              <gui-label class="perc-20">Method</gui-label>
+              <gui-select class="perc-80" data-id="IPv4Method">
+              </gui-select>
             </gui-vbox-container>
           </gui-vbox>
         </gui-tab-container>
@@ -48,7 +74,7 @@
 
   <gui-vbox>
     <gui-vbox-container data-grow="1" data-fill="true">
-      <gui-tabs>
+      <gui-tabs data-id="Tabs">
         <gui-tab-container data-label="Network">
           <gui-vbox>
             <gui-vbox-container data-grow="1" data-fill="true">
@@ -57,6 +83,13 @@
           </gui-vbox>
         </gui-tab-container>
 
+        <gui-tab-container data-label="WIFI">
+          <gui-vbox>
+            <gui-vbox-container data-grow="1" data-fill="true">
+              <gui-textarea data-id="WIFI" />
+            </gui-vbox-container>
+          </gui-vbox>
+        </gui-tab-container>
       </gui-tabs>
     </gui-vbox-container>
 
@@ -73,17 +106,15 @@
 <application-dialog data-id="WIFIConnection">
 
   <gui-vbox>
+    <gui-vbox-container data-shrink="1" data-expand="true">
+      <gui-select data-id="Device">
+      </gui-select>
+    </gui-vbox-container>
 
     <gui-vbox-container data-grow="1" data-fill="true">
       <gui-tabs>
         <gui-tab-container data-label="Wireless">
           <gui-vbox>
-            <gui-vbox-container data-shrink="1">
-              <gui-label class="perc-20">Device</gui-label>
-              <gui-select class="perc-80" data-id="Device">
-              </gui-select>
-            </gui-vbox-container>
-
             <gui-vbox-container data-shrink="1">
               <gui-label class="perc-20">Mode</gui-label>
               <gui-select class="perc-80" data-id="Mode">

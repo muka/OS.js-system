@@ -38,7 +38,7 @@
     args.scheme = OSjs.Extensions.SystemExtension.scheme;
 
     DialogWindow.apply(this, ['NetworkConnectionDialog', {
-      title: 'Network',
+      title: 'Configure Wired Devices',
       icon: 'devices/network-wired.png',
       width: 400,
       height: 300

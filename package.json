@@ -1,5 +1,6 @@
 {
   "name": "OS.js-System-Packages",
   "dependencies": {
+    "wireless-tools": "latest"
   }
 }

@@ -38,11 +38,14 @@
     args.scheme = OSjs.Extensions.SystemExtension.scheme;
 
     DialogWindow.apply(this, ['StatusDialog', {
-      title: 'Status',
-      icon: 'devices/network-wireless.png',
+      title: 'System Status',
+      icon: 'devices/computer.png',
       width: 400,
-      height: 300
+      height: 400
     }, args, callback]);
+
+    this._properties.allow_resize     = true;
+    this._properties.allow_maximize   = true;
   }
 
   StatusDialog.prototype = Object.create(DialogWindow.prototype);
@@ -53,22 +56,41 @@
     var self = this;
 
     var networkStatus = this.scheme.find(this, 'Network');
+    var wifiStatus = this.scheme.find(this, 'WIFI')
+    var current = 0;
 
-    function refresh() {
+    function c(n, a, cb) {
       self._toggleLoading(true);
-
-      API.call('ifconfig', {}, function(response) {
+      API.call(n, a, function(response) {
         self._toggleLoading(false);
-
         if ( response.result ) {
-          if ( networkStatus ) {
-            networkStatus.set('value', JSON.stringify(response.result, null, 4));
-          }
+          cb(response);
         }
       }, function(err) {
         self._toggleLoading(false);
       });
     }
+
+    function refresh() {
+      if ( current === 0 ) {
+        c('ifconfig', {command: 'status', device: true}, function(response) {
+          if ( networkStatus ) {
+            networkStatus.set('value', JSON.stringify(response.result, null, 4));
+          }
+        });
+      } else if ( current === 1 ) {
+        c('iwconfig', {command: 'status', device: true}, function(response) {
+          if ( wifiStatus ) {
+            wifiStatus.set('value', JSON.stringify(response.result, null, 4));
+          }
+        });
+      }
+    }
+
+    this.scheme.find(this, 'Tabs').on('change', function(ev) {
+      current = ev.detail.index;
+      refresh();
+    });
 
     this.scheme.find(this, 'ButtonClose').on('click', function(ev) {
       self._close();

@@ -89,6 +89,11 @@
         title: 'Wireless'
       });
     }
+
+    OSjs.Extensions.SystemExtension.System.openDialog();
+    OSjs.Extensions.SystemExtension.WIFI.openDialog();
+    OSjs.Extensions.SystemExtension.Network.openDialog();
+    OSjs.Extensions.SystemExtension.Status.openDialog();
   };
 
   SystemService.prototype.showMenu = function(ev) {
