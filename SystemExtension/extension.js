@@ -28,6 +28,7 @@
  * @licence Simplified BSD License
  */
 (function(Utils, VFS, API, GUI) {
+  var dialogs = {};
 
   /////////////////////////////////////////////////////////////////////////////
   // MODULE API
@@ -44,12 +45,30 @@
     });
   }
 
+  function showDialog(name, create, cb) {
+    function done() {
+      if ( dialogs[name] ) {
+        dialogs[name] = null;
+      }
+
+      (cb || function() {})();
+    }
+
+    if ( dialogs[name] ) {
+      dialogs[name]._focus();
+      return;
+    }
+
+    dialogs[name] = create(done);
+  }
+
   /////////////////////////////////////////////////////////////////////////////
   // EXPORTS
   /////////////////////////////////////////////////////////////////////////////
 
   OSjs.Extensions.SystemExtension = OSjs.Extensions.SystemExtension || {};
   OSjs.Extensions.SystemExtension.init = init;
+  OSjs.Extensions.SystemExtension.showDialog = showDialog;
   OSjs.Extensions.SystemExtension.scheme = null;
 
 })(OSjs.Utils, OSjs.VFS, OSjs.API, OSjs.GUI);

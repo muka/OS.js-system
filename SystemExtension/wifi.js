@@ -59,11 +59,12 @@
 
   var WIFI = {
     openDialog: function(cb) {
-      cb = cb || function() {};
-
-      return OSjs.API.createDialog(function(args, callback) {
-        return new WIFIConnectionDialog(args, callback);
-      }, {}, cb);
+      var args = {};
+      OSjs.Extensions.SystemExtension.showDialog('WIFI', function(done) {
+        return OSjs.API.createDialog(function(args, callback) {
+          return new WIFIConnectionDialog(args, callback);
+        }, args, done);
+      }, cb);
     }
   };
 

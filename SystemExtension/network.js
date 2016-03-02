@@ -59,11 +59,12 @@
 
   var Network = {
     openDialog: function(cb) {
-      cb = cb || function() {};
-
-      return OSjs.API.createDialog(function(args, callback) {
-        return new NetworkConnectionDialog(args, callback);
-      }, {}, cb);
+      var args = {};
+      OSjs.Extensions.SystemExtension.showDialog('Network', function(done) {
+        return OSjs.API.createDialog(function(args, callback) {
+          return new NetworkConnectionDialog(args, callback);
+        }, args, done);
+      }, cb);
     }
   };
 

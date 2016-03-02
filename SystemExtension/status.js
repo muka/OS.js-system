@@ -111,11 +111,12 @@
 
   var Status = {
     openDialog: function(cb) {
-      cb = cb || function() {};
-
-      return OSjs.API.createDialog(function(args, callback) {
-        return new StatusDialog(args, callback);
-      }, {}, cb);
+      var args = {};
+      OSjs.Extensions.SystemExtension.showDialog('Status', function(done) {
+        return OSjs.API.createDialog(function(args, callback) {
+          return new StatusDialog(args, callback);
+        }, args, done);
+      }, cb);
     }
   };
 

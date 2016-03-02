@@ -59,11 +59,12 @@
 
   var System = {
     openDialog: function(cb) {
-      cb = cb || function() {};
-
-      return OSjs.API.createDialog(function(args, callback) {
-        return new SystemDialog(args, callback);
-      }, {}, cb);
+      var args = {};
+      OSjs.Extensions.SystemExtension.showDialog('System', function(done) {
+        return OSjs.API.createDialog(function(args, callback) {
+          return new SystemDialog(args, callback);
+        }, args, done);
+      }, cb);
     }
   };
 

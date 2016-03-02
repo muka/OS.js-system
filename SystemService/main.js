@@ -71,29 +71,35 @@
 
       wm.createNotificationIcon('SoundNotification', {
         image: OSjs.API.getIcon('status/audio-volume-muted.png', '16x16'),
-        title: 'Volume'
+        title: 'Volume',
+        onClick: this.showSoundMenu
       });
 
       wm.createNotificationIcon('BatteryNotification', {
         image: OSjs.API.getIcon('status/battery-missing.png', '16x16'),
-        title: 'Battery'
+        title: 'Battery',
+        onClick: this.showBatteryMenu
       });
 
       wm.createNotificationIcon('NetworkNotification', {
         image: OSjs.API.getIcon('status/network-offline.png', '16x16'),
-        title: 'Network'
+        title: 'Network',
+        onClick: this.showNetworkMenu
       });
 
       wm.createNotificationIcon('WirelessNotification', {
         image: OSjs.API.getIcon('devices/network-wireless.png', '16x16'),
-        title: 'Wireless'
+        title: 'Wireless',
+        onClick: this.showWIFIMenu
       });
     }
 
+    /*
     OSjs.Extensions.SystemExtension.System.openDialog();
     OSjs.Extensions.SystemExtension.WIFI.openDialog();
     OSjs.Extensions.SystemExtension.Network.openDialog();
     OSjs.Extensions.SystemExtension.Status.openDialog();
+    */
   };
 
   SystemService.prototype.showMenu = function(ev) {
@@ -117,6 +123,50 @@
       onClick: function() {
         OSjs.Extensions.SystemExtension.Status.openDialog();
       }
+    }], ev);
+  };
+
+  SystemService.prototype.showSoundMenu = function(ev) {
+    OSjs.API.createMenu([{
+      title: 'No sound available',
+      disabled: true
+    }], ev);
+  };
+
+  SystemService.prototype.showBatteryMenu = function(ev) {
+    OSjs.API.createMenu([{
+      title: 'No battery available',
+      disabled: true
+    }], ev);
+  };
+
+  SystemService.prototype.showNetworkMenu = function(ev) {
+    OSjs.API.createMenu([{
+      title: 'Configure Network',
+      onClick: function() {
+        OSjs.Extensions.SystemExtension.Network.openDialog();
+      }
+    }, {
+      title: 'Network Adapters:',
+      disabled: true
+    }], ev);
+  };
+
+  SystemService.prototype.showWIFIMenu = function(ev) {
+    OSjs.API.createMenu([{
+      title: 'Configure WIFI',
+      onClick: function() {
+        OSjs.Extensions.SystemExtension.WIFI.openDialog();
+      }
+    }, {
+      title: 'Connection: Disconnected',
+      disabled: true
+    }, {
+      title: 'SSID: <none>',
+      disabled: true
+    }, {
+      title: 'Signal: <none>',
+      disabled: true
     }], ev);
   };
 

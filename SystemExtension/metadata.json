@@ -13,6 +13,9 @@
       "wifi.js"
     ]
   },
+  "conf": [
+    "conf/extension.json"
+  ],
   "sources":    [
     {"src": "extension.js", "type": "javascript"},
     {"src": "extension.css", "type": "stylesheet"},
