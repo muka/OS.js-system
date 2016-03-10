@@ -118,6 +118,11 @@
             <gui-vbox-container data-shrink="1">
               <gui-label class="perc-20">Mode</gui-label>
               <gui-select class="perc-80" data-id="Mode">
+                <gui-select-option data-value="master">Master</gui-select-option>
+                <gui-select-option data-value="managed">Managed</gui-select-option>
+                <gui-select-option data-value="adhoc">Ad-hoc</gui-select-option>
+                <gui-select-option data-value="mesh">Mesh</gui-select-option>
+                <gui-select-option data-value="repeater">Repeater</gui-select-option>
               </gui-select>
             </gui-vbox-container>
 
@@ -133,6 +138,9 @@
             <gui-vbox-container data-shrink="1">
               <gui-label class="perc-20">Security</gui-label>
               <gui-select class="perc-80" data-id="SecurityMode">
+                <gui-select-option data-value="">Disabled</gui-select-option>
+                <gui-select-option data-value="wep">WEP</gui-select-option>
+                <gui-select-option data-value="wpa2">WPA2</gui-select-option>
               </gui-select>
             </gui-vbox-container>
 

@@ -153,21 +153,39 @@
   };
 
   SystemService.prototype.showWIFIMenu = function(ev) {
-    OSjs.API.createMenu([{
-      title: 'Configure WIFI',
-      onClick: function() {
-        OSjs.Extensions.SystemExtension.WIFI.openDialog();
-      }
-    }, {
-      title: 'Connection: Disconnected',
-      disabled: true
-    }, {
-      title: 'SSID: <none>',
-      disabled: true
-    }, {
-      title: 'Signal: <none>',
-      disabled: true
-    }], ev);
+    OSjs.Extensions.SystemExtension.getDevices('wifi', function(err, res) {
+      var menu = [{
+        title: 'Configure WIFI',
+        onClick: function() {
+          OSjs.Extensions.SystemExtension.WIFI.openDialog();
+        }
+      }];
+
+      (res || []).forEach(function(dev) {
+        menu.push({
+          title: 'Interface: ' + dev.interface,
+          disabled: true
+        });
+        menu.push({
+          title: '  Mode: ' + (dev.mode || '<none>'),
+          disabled: true
+        });
+        menu.push({
+          title: '  AP: ' + (dev.access_point || '<none>'),
+          disabled: true
+        });
+        menu.push({
+          title: '  SSID: ' + (dev.ssid || '<none>'),
+          disabled: true
+        });
+        menu.push({
+          title: '  Signal: ' + String(dev.signal || 0),
+          disabled: true
+        });
+      });
+
+      OSjs.API.createMenu(menu, ev);
+    });
   };
 
   /////////////////////////////////////////////////////////////////////////////

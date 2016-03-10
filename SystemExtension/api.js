@@ -42,7 +42,7 @@
         ifconfig.status(device, cb);
       }
     } else {
-      cb('No such command', true);
+      cb('No such command', false);
     }
 
   }
@@ -58,7 +58,7 @@
         iwconfig.status(device, cb);
       }
     } else {
-      cb('No such command', true);
+      cb('No such command', false);
     }
   }
 

@@ -50,7 +50,38 @@
 
   WIFIConnectionDialog.prototype.init = function() {
     var root = DialogWindow.prototype.init.apply(this, arguments);
+
+
     return root;
+  };
+
+  WIFIConnectionDialog.prototype._inited = function() {
+    var self = this;
+    var ret = DialogWindow.prototype._inited.apply(this, arguments);
+    var select = this.scheme.find(this, 'Device');
+    var modes = this.scheme.find(this, 'Mode');
+    var bssid = this.scheme.find(this, 'BSSID');
+
+    this._toggleLoading(true);
+    OSjs.Extensions.SystemExtension.getDevices('wifi', function(err, res) {
+      self._toggleLoading(false);
+
+      var devices = [];
+      (res || []).forEach(function(iter) {
+        devices.push({
+          label: iter.interface,
+          value: iter.interface
+        });
+      });
+
+      select.add(devices);
+      if ( devices.length ) {
+        modes.set('value', res[0].mode);
+        bssid.set('value', res[0].access_point);
+      }
+    });
+
+    return ret;
   };
 
   /////////////////////////////////////////////////////////////////////////////

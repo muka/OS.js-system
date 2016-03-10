@@ -29,6 +29,13 @@
  */
 (function(Utils, VFS, API, GUI) {
   var dialogs = {};
+  var lastPoll = 0;
+  var devices = {
+    network: [],
+    wifi: [],
+    battery: false,
+    sound: false
+  };
 
   /////////////////////////////////////////////////////////////////////////////
   // MODULE API
@@ -41,7 +48,9 @@
     OSjs.Extensions.SystemExtension.scheme = scheme;
 
     scheme.load(function(error, result) {
-      done();
+      pollDevices({}, function() {
+        done();
+      });
     });
   }
 
@@ -62,14 +71,49 @@
     dialogs[name] = create(done);
   }
 
+  function pollDevices(args, cb) {
+    cb = cb || function() {};
+
+    function done() {
+      lastPoll = new Date();
+      cb(false);
+    }
+
+    var diff = ((new Date()) - lastPoll) / 1000;
+    if ( diff < 5 ) {
+      done();
+      return;
+    }
+
+    API.call('ifconfig', {command: 'status', device: true}, function(response) {
+      devices.network = response.result || [];
+
+      API.call('iwconfig', {command: 'status', device: true}, function(response) {
+        devices.wifi = response.result || [];
+      });
+
+      done();
+    });
+  }
+
+  function getDevices(type, cb) {
+    cb = cb || function() {};
+
+    pollDevices({}, function(err) {
+      cb(err, err ? false : type ? devices[type] : devices);
+    });
+  }
+
   /////////////////////////////////////////////////////////////////////////////
   // EXPORTS
   /////////////////////////////////////////////////////////////////////////////
 
   OSjs.Extensions.SystemExtension = OSjs.Extensions.SystemExtension || {};
   OSjs.Extensions.SystemExtension.init = init;
-  OSjs.Extensions.SystemExtension.showDialog = showDialog;
   OSjs.Extensions.SystemExtension.scheme = null;
+  OSjs.Extensions.SystemExtension.showDialog = showDialog;
+  OSjs.Extensions.SystemExtension.getDevices = getDevices;
+  OSjs.Extensions.SystemExtension.pollDevices = pollDevices;
 
 })(OSjs.Utils, OSjs.VFS, OSjs.API, OSjs.GUI);
 
