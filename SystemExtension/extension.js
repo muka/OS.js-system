@@ -31,6 +31,7 @@
   var dialogs = {};
   var lastPoll = 0;
   var devices = {
+    available: [],
     network: [],
     wifi: [],
     battery: false,
@@ -85,15 +86,11 @@
       return;
     }
 
-    API.call('ifconfig', {command: 'status', device: true}, function(response) {
-      devices.network = response.result || [];
-
-      API.call('iwconfig', {command: 'status', device: true}, function(response) {
-        devices.wifi = response.result || [];
-      });
-
+    API.call('getDevices', { command: 'list' }, function(response) {
+      devices.available = response.result || [];
       done();
     });
+
   }
 
   function getDevices(type, cb) {
@@ -116,4 +113,3 @@
   OSjs.Extensions.SystemExtension.pollDevices = pollDevices;
 
 })(OSjs.Utils, OSjs.VFS, OSjs.API, OSjs.GUI);
-

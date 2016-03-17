@@ -1,6 +1,13 @@
 {
   "name": "OS.js-System-Packages",
   "dependencies": {
+    "dbus-native": "^0.2.0",
     "wireless-tools": "latest"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha $@"
   }
 }

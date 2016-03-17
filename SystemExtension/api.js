@@ -29,49 +29,19 @@
  */
 (function(os) {
 
-  function ifconfig(args, cb) {
-    var ifconfig = require('wireless-tools/ifconfig');
+  var netman = require('../lib/network-manager')
 
-    if ( ['up', 'down'].indexOf(args.command) >= 0 ) {
-      ifconfig[args.command](args.options, cb);
-    } else if ( args.command === 'status' ) {
-      var device = args.device || 'lo';
-      if ( device === true ) {
-        ifconfig.status(cb);
-      } else {
-        ifconfig.status(device, cb);
-      }
-    } else {
-      cb('No such command', false);
-    }
-
-  }
-
-  function iwconfig(args, cb) {
-    var device = args.device || 'wlan0';
-    var iwconfig = require('wireless-tools/iwconfig');
-
-    if ( args.command === 'status' ) {
-      if ( device === true ) {
-        iwconfig.status(cb);
-      } else {
-        iwconfig.status(device, cb);
-      }
-    } else {
-      cb('No such command', false);
-    }
-  }
-
-  function iwscan(args, cb) {
-    var device = args.device || 'wlan0';
-    var iwlist = require('wireless-tools/iwlist');
-    iwlist.scan(device, cb);
+  var getDevices = function(args, cb) {
+    netman.getDevices(function(err, list) {
+      if(err) return cb(err)
+      cb(false, list.map(function(obj) {
+        return obj.props
+      }))
+    })
   }
 
   exports.register = function(API, VFS, instance) {
-    API.iwconfig = iwconfig;
-    API.ifconfig = ifconfig;
-    API.iwscan   = iwscan;
+    API.getDevices = getDevices;
   };
 
 })(require('os'));

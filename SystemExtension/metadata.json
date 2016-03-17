@@ -1,7 +1,7 @@
 {
-  "className":  "SystemExtension",
-  "type":       "extension",
-  "build":      {
+  "className": "SystemExtension",
+  "type": "extension",
+  "build": {
     "copy": [
       "scheme.html",
       "metadata.json",
@@ -17,15 +17,30 @@
   "conf": [
     "conf/extension.json"
   ],
-  "sources":    [
-    {"src": "extension.js", "type": "javascript"},
-    {"src": "extension.css", "type": "stylesheet"},
-    {"src": "status.js", "type": "javascript"},
-    {"src": "system.js", "type": "javascript"},
-    {"src": "network.js", "type": "javascript"},
-    {"src": "wifi.js", "type": "javascript"}
+  "sources": [
+    {
+      "src": "extension.js",
+      "type": "javascript"
+    },
+    {
+      "src": "extension.css",
+      "type": "stylesheet"
+    },
+    {
+      "src": "status.js",
+      "type": "javascript"
+    },
+    {
+      "src": "system.js",
+      "type": "javascript"
+    },
+    {
+      "src": "network.js",
+      "type": "javascript"
+    },
+    {
+      "src": "wifi.js",
+      "type": "javascript"
+    }
   ]
 }
-
-
-
