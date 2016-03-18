@@ -93,11 +93,10 @@
 
   }
 
-  function getDevices(type, cb) {
+  function getDevices(cb) {
     cb = cb || function() {};
-
     pollDevices({}, function(err) {
-      cb(err, err ? false : type ? devices[type] : devices);
+      cb(err, err ? false : devices.available);
     });
   }
 

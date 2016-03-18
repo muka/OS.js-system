@@ -7,10 +7,20 @@ var cache = {}
 describe('NetworkManager', function() {
 
   describe('create instance', function () {
+
     it('should return an instance of dbus NetworkManager', function (done) {
       netman.getNetworkManager(function(err, networkManager) {
         assert.equal( !err, true )
         cache.networkManager = networkManager
+        done()
+      })
+    });
+
+    it('should return all properties for the NetworkManager', function (done) {
+      netman.GetAllProperties(netman.enums.interfaces.NetworkManager, function(err, list) {
+        // console.dir(list)
+        assert.equal( !err, true )
+        assert.equal( typeof list === 'object', true )
         done()
       })
     });
@@ -38,7 +48,7 @@ describe('NetworkManager', function() {
 
           assert.equal( !err, true )
 
-          netman.GetAllProperties(devPath, function(err, list) {
+          netman.GetAllProperties(netman.enums.interfaces.Device, devPath, function(err, list) {
             assert.equal( !err, true )
             assert.equal( typeof list === 'object', true )
             done()

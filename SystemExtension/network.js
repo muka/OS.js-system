@@ -48,8 +48,36 @@
   NetworkConnectionDialog.prototype = Object.create(DialogWindow.prototype);
   NetworkConnectionDialog.constructor = DialogWindow;
 
-  NetworkConnectionDialog.prototype.init = function() {
+  NetworkConnectionDialog.prototype.init = function(wm) {
+
+    var win = this
     var root = DialogWindow.prototype.init.apply(this, arguments);
+
+    var scheme = wm.scheme
+
+    OSjs.Extensions.SystemExtension.getDevices(function(err, res) {
+
+      var devicesView = scheme.find(win, 'NetworkDevicesList')
+      devicesView.add({
+       label: "TEST",
+       icon: null,
+       value: "TEST",
+       entries: [
+         {
+          label: "item1",
+          icon: null,
+          value: "item1",
+        },
+         {
+          label: "item2",
+          icon: null,
+          value: "item2",
+        },
+      ]
+      })
+
+    })
+
     return root;
   };
 
@@ -76,4 +104,3 @@
   OSjs.Extensions.SystemExtension.Network = Network;
 
 })(OSjs.Utils, OSjs.VFS, OSjs.API, OSjs.Core.DialogWindow);
-
