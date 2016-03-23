@@ -1,7 +1,7 @@
 {
   "name": "OS.js-System-Packages",
   "dependencies": {
-    "dbus-native": "^0.2.0",
+    "dbus-network-manager": "github:muka/node-dbus-network-manager",
     "wireless-tools": "latest"
   },
   "devDependencies": {
