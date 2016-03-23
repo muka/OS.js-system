@@ -38,7 +38,7 @@
     args.scheme = OSjs.Extensions.SystemExtension.scheme;
 
     DialogWindow.apply(this, ['NetworkConnectionDialog', {
-      title: 'Configure Wired Devices',
+      title: 'Network Connections',
       icon: 'devices/network-wired.png',
       width: 400,
       height: 300
@@ -55,26 +55,34 @@
 
     var scheme = wm.scheme
 
-    OSjs.Extensions.SystemExtension.getDevices(function(err, res) {
+    OSjs.Extensions.SystemExtension.getDevices(function(err, devices) {
 
-      var devicesView = scheme.find(win, 'NetworkDevicesList')
-      devicesView.add({
-       label: "TEST",
-       icon: null,
-       value: "TEST",
-       entries: [
-         {
-          label: "item1",
+      var devicesView = scheme.find(win, 'net-list')
+
+      var groups = {}
+      devices.forEach(function(device) {
+
+        groups[ device.Group ] = groups[ device.Group ] || {
           icon: null,
-          value: "item1",
-        },
-         {
-          label: "item2",
-          icon: null,
-          value: "item2",
-        },
-      ]
+          value: device.Group,
+          label: device.Group,
+          entries: [],
+        }
+
+        groups[ device.Group ].entries.push({
+          label: device.Interface + ' ('+ device.State +')',
+          value: device.Interface,
+        })
+
       })
+
+      var tree = Object.keys(groups).map(function(g) {
+        return groups[g]
+      }).sort(function(a, b) {
+        return a.label >= b.label
+      })
+
+      devicesView.add(tree)
 
     })
 

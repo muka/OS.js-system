@@ -29,15 +29,10 @@
  */
 (function(os) {
 
-  var netman = require('../lib/network-manager')
+  var netman = require('../lib/netman')
 
   var getDevices = function(args, cb) {
-    netman.getDevices(function(err, list) {
-      if(err) return cb(err)
-      cb(false, list.map(function(obj) {
-        return obj.props
-      }))
-    })
+    netman.getDevices(cb)
   }
 
   exports.register = function(API, VFS, instance) {
