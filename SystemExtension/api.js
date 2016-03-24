@@ -32,7 +32,7 @@
   var netman = require('../lib/netman')
 
   var getDevices = function(args, cb) {
-    netman.getDevices(cb)
+    netman.getDevices(args, cb)
   }
 
   exports.register = function(API, VFS, instance) {

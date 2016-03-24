@@ -86,8 +86,8 @@
       return;
     }
 
-    API.call('getDevices', { command: 'list' }, function(response) {
-      devices.available = response.result || [];
+    API.call('getDevices', { command: 'list' }, function(err, res) {
+      devices.available = res || [];
       done();
     });
 
