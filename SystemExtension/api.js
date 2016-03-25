@@ -31,12 +31,15 @@
 
   var netman = require('../lib/netman')
 
-  var getDevices = function(args, cb) {
-    netman.getDevices(args, cb)
-  }
-
   exports.register = function(API, VFS, instance) {
-    API.getDevices = getDevices;
+
+    API.getDevices = function(args, cb) {
+      netman.getDevices(args, cb)
+    };
+    API.getActiveConnections = function(args, cb) {
+      netman.getActiveConnections(args, cb)
+    };
+
   };
 
 })(require('os'));
