@@ -55,23 +55,44 @@
 
     var scheme = wm.scheme
 
-    OSjs.Extensions.SystemExtension.getDevices(function(err, devices) {
+    var getStateLabel = function(state) {
+      switch (state) {
+        case "NM_ACTIVE_CONNECTION_STATE_ACTIVATED":
+          return 'Active'
+        default:
+          return null
+      }
+    }
+    var getTypeLabel = function(type) {
+      switch (type) {
+        case "802-3-ethernet":
+          return 'Ethernet'
+        case "802-11-wireless":
+          return 'Wireless'
+        default:
+          return type.substr(0,1).toUpperCase() + type.substr(1)
+      }
+    }
+
+    OSjs.Extensions.SystemExtension.getActiveConnections(function(err, connections) {
 
       var devicesView = scheme.find(win, 'net-list')
 
-      var groups = {}
-      devices.forEach(function(device) {
+      console.warn(connections);
 
-        groups[ device.Group ] = groups[ device.Group ] || {
+      var groups = {};
+      connections.forEach(function(conn) {
+        var groupKey = conn.Type
+        groups[ groupKey ] = groups[ groupKey ] || {
           icon: null,
-          value: device.Group,
-          label: device.Group,
+          value: groupKey,
+          label: getTypeLabel(groupKey),
           entries: [],
-        }
+        };
 
-        groups[ device.Group ].entries.push({
-          label: device.Interface + ' ('+ device.State +')',
-          value: device.Interface,
+        groups[ groupKey ].entries.push({
+          label: conn.Id,
+          value: conn.Uuid,
         })
 
       })

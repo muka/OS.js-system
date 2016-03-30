@@ -27,17 +27,38 @@
  * @author  Anders Evenrud <andersevenrud@gmail.com>
  * @licence Simplified BSD License
  */
-(function(os) {
+(function (os) {
 
   var netman = require('../lib/netman')
 
-  exports.register = function(API, VFS, instance) {
+  exports.register = function (API, VFS, instance) {
 
-    API.getDevices = function(args, cb) {
-      netman.getDevices(args, cb)
+    API.getDevices = function (args, cb) {
+      netman.getDevices(args)
+        .then(function (res) {
+          cb(null, res)
+        })
+        .catch(function (err) {
+          cb(err, null)
+        })
     };
-    API.getActiveConnections = function(args, cb) {
-      netman.getActiveConnections(args, cb)
+    API.getActiveConnections = function (args, cb) {
+      netman.getActiveConnections(args)
+        .then(function (res) {
+          cb(null, res)
+        })
+        .catch(function (err) {
+          cb(err, null)
+        })
+    };
+    API.getOverview = function (args, cb) {
+      netman.getOverview(args)
+        .then(function (res) {
+          cb(null, res)
+        })
+        .catch(function (err) {
+          cb(err, null)
+        })
     };
 
   };

@@ -49,9 +49,7 @@
     OSjs.Extensions.SystemExtension.scheme = scheme;
 
     scheme.load(function(error, result) {
-      pollDevices({}, function() {
-        done();
-      });
+      done();
     });
   }
 
@@ -72,33 +70,6 @@
     dialogs[name] = create(done);
   }
 
-  function pollDevices(args, cb) {
-    cb = cb || function() {};
-
-    function done() {
-      lastPoll = new Date();
-      cb(false);
-    }
-
-    var diff = ((new Date()) - lastPoll) / 1000;
-    if ( diff < 5 ) {
-      done();
-      return;
-    }
-
-    API.call('getDevices', { command: 'list' }, function(err, res) {
-      devices.available = res || [];
-      done();
-    });
-
-  }
-
-  function getDevices(cb) {
-    cb = cb || function() {};
-    pollDevices({}, function(err) {
-      cb(err, err ? false : devices.available);
-    });
-  }
 
   /////////////////////////////////////////////////////////////////////////////
   // EXPORTS
@@ -108,7 +79,17 @@
   OSjs.Extensions.SystemExtension.init = init;
   OSjs.Extensions.SystemExtension.scheme = null;
   OSjs.Extensions.SystemExtension.showDialog = showDialog;
-  OSjs.Extensions.SystemExtension.getDevices = getDevices;
-  OSjs.Extensions.SystemExtension.pollDevices = pollDevices;
+
+  OSjs.Extensions.SystemExtension.getOverview = function(cb) {
+    API.call('getOverview', {}, cb);
+  };
+
+  OSjs.Extensions.SystemExtension.getDevices = function(cb) {
+    API.call('getDevices', { command: 'list' }, cb);
+  };
+
+  OSjs.Extensions.SystemExtension.getActiveConnections = function(cb) {
+    API.call('getActiveConnections', { command: 'list' }, cb);
+  };
 
 })(OSjs.Utils, OSjs.VFS, OSjs.API, OSjs.GUI);
