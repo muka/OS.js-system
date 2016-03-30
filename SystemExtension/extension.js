@@ -29,15 +29,7 @@
  */
 (function(Utils, VFS, API, GUI) {
   var dialogs = {};
-  var lastPoll = 0;
-  var devices = {
-    available: [],
-    network: [],
-    wifi: [],
-    battery: false,
-    sound: false
-  };
-
+  
   /////////////////////////////////////////////////////////////////////////////
   // MODULE API
   /////////////////////////////////////////////////////////////////////////////
@@ -70,7 +62,6 @@
     dialogs[name] = create(done);
   }
 
-
   /////////////////////////////////////////////////////////////////////////////
   // EXPORTS
   /////////////////////////////////////////////////////////////////////////////
@@ -80,16 +71,21 @@
   OSjs.Extensions.SystemExtension.scheme = null;
   OSjs.Extensions.SystemExtension.showDialog = showDialog;
 
-  OSjs.Extensions.SystemExtension.getOverview = function(cb) {
-    API.call('getOverview', {}, cb);
-  };
+  var methods = [
+    'getAvailableConnections',
+    'getDevices',
+    'getActiveConnections',
+    'getOverview',
+  ]
 
-  OSjs.Extensions.SystemExtension.getDevices = function(cb) {
-    API.call('getDevices', { command: 'list' }, cb);
-  };
+  var exposeMethods = function() {
+    methods.forEach(function(methodName) {
+      OSjs.Extensions.SystemExtension[methodName] = function (args, cb) {
+        API.call(methodName, args, cb);
+      }
+    })
+  }
 
-  OSjs.Extensions.SystemExtension.getActiveConnections = function(cb) {
-    API.call('getActiveConnections', { command: 'list' }, cb);
-  };
+  exposeMethods()
 
 })(OSjs.Utils, OSjs.VFS, OSjs.API, OSjs.GUI);

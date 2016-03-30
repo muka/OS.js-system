@@ -74,7 +74,7 @@
       }
     }
 
-    OSjs.Extensions.SystemExtension.getActiveConnections(function(err, connections) {
+    OSjs.Extensions.SystemExtension.getAvailableConnections({}, function(err, connections) {
 
       var devicesView = scheme.find(win, 'net-list')
 
@@ -82,17 +82,18 @@
 
       var groups = {};
       connections.forEach(function(conn) {
-        var groupKey = conn.Type
+        var groupKey = conn.connection.type
         groups[ groupKey ] = groups[ groupKey ] || {
-          icon: null,
+          // icon: null,
           value: groupKey,
           label: getTypeLabel(groupKey),
           entries: [],
         };
 
         groups[ groupKey ].entries.push({
-          label: conn.Id,
-          value: conn.Uuid,
+          // icon: null,
+          label: conn.connection.id + ' (last used '+ new Date(conn.connection.timestamp*1000).toLocaleDateString() +')',
+          value: conn.connection.uuid,
         })
 
       })

@@ -33,33 +33,22 @@
 
   exports.register = function (API, VFS, instance) {
 
-    API.getDevices = function (args, cb) {
-      netman.getDevices(args)
-        .then(function (res) {
-          cb(null, res)
-        })
-        .catch(function (err) {
-          cb(err, null)
-        })
-    };
-    API.getActiveConnections = function (args, cb) {
-      netman.getActiveConnections(args)
-        .then(function (res) {
-          cb(null, res)
-        })
-        .catch(function (err) {
-          cb(err, null)
-        })
-    };
-    API.getOverview = function (args, cb) {
-      netman.getOverview(args)
-        .then(function (res) {
-          cb(null, res)
-        })
-        .catch(function (err) {
-          cb(err, null)
-        })
-    };
+    var methods = [
+      'getAvailableConnections',
+      'getDevices',
+      'getActiveConnections',
+      'getOverview',
+    ]
+
+    var exposeMethods = function() {
+      methods.forEach(function(methodName) {
+        API[methodName] = function (args, cb) {
+          netman[methodName](args).asCallback(cb)
+        }
+      })
+    }
+
+    exposeMethods()
 
   };
 
